@@ -9,8 +9,8 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  * @author xunmi
  */
 @SpringBootApplication
-@ServletComponentScan
 @MapperScan("com.soft1851.music.admin.mapper")
+@ServletComponentScan
 public class CloudMusicAdminApplication {
 
     public static void main(String[] args) {

@@ -13,9 +13,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>cloud-music-admin</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>11</java.version>
     </properties>
+
     <dependencies>
         <!--SpringBoot 相关依赖-->
         <!--SpringBoot Web-->
@@ -52,6 +54,8 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+
         <!--Mysql数据库相关依赖-->
         <!--mysql-connector-->
         <dependency>
@@ -84,6 +88,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
+
         <!--认证鉴权相关依赖-->
         <!--JWT-->
         <dependency>
@@ -97,12 +102,13 @@
             <artifactId>kaptcha</artifactId>
             <version>2.3.2</version>
         </dependency>
+
         <!--工具依赖-->
         <!--commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.13</version>
+            <version>1.14</version>
         </dependency>
         <!--lombok-->
         <dependency>
@@ -116,7 +122,34 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.68</version>
         </dependency>
+        <!--poi依赖，使用SXSSFWorkbook来处理大数据量Excel导出必须-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.2.4.RELEASE</version>
+        </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -125,4 +158,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

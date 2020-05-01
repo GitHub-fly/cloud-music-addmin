@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.soft1851.music.admin.annotation.Password;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -48,6 +50,7 @@ public class SysUser extends Model<SysUser> {
      * 用户密码
      */
     @TableField("password")
+    @Password
     private String password;
 
     /**

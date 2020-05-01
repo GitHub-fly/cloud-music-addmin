@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.soft1851.music.admin.annotation.Password;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -29,9 +30,6 @@ public class SysAdmin extends Model<SysAdmin> {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
-    private List<SysRole> roles;
-
     /**
      * 主键
      */
@@ -47,12 +45,15 @@ public class SysAdmin extends Model<SysAdmin> {
     /**
      * 密码
      */
+    @JsonIgnore
     @TableField("password")
+    @Password
     private String password;
 
     /**
      * 加密盐
      */
+    @JsonIgnore
     @TableField("salt")
     private String salt;
 
@@ -65,25 +66,29 @@ public class SysAdmin extends Model<SysAdmin> {
     /**
      * 创建时间
      */
+    @JsonIgnore
     @TableField("create_time")
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
+    @JsonIgnore
     @TableField("update_time")
     private LocalDateTime updateTime;
 
     /**
      * 账户状态：0 禁用 1 启用
      */
+    @JsonIgnore
     @TableField("status")
     private Integer status;
-
 
     @Override
     protected Serializable pkVal() {
         return this.id;
     }
+
+    private List<SysRole> roles;
 
 }

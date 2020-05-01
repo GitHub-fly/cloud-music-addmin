@@ -3,6 +3,7 @@ package com.soft1851.music.admin.service;
 import com.soft1851.music.admin.domain.entity.SysRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,11 +16,17 @@ import java.util.Map;
  */
 public interface SysRoleService extends IService<SysRole> {
     /**
-     * 根据token查询角色，包含其所有菜单
-     * @param token
+     * 根据角色id获取角色信息（基础信息和该角色所有菜单）
+     * @param roleId
      * @return
      */
-    Map<String, Object> selectRoleById(String token);
+    Map<String,Object> selectRoleById(int roleId);
 
-
+    /**
+     * 检查roleId是否在roles中存在
+     * @param roles
+     * @param roleId
+     * @return boolean
+     */
+    boolean checkRole(List<SysRole> roles, int roleId);
 }

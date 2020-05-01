@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   # jackson配置
   jackson:
@@ -9,11 +10,11 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://rm-m5ee476bu350735gjeo.mysql.rds.aliyuncs.com:3306/cloud_music?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true
     url: jdbc:mysql://localhost:3306/cloud_music?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true
+    #    url: jdbc:mysql://rm-m5ee476bu350735gjeo.mysql.rds.aliyuncs.com:3306/cloud_music?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true
     username: root
-#    password: XuNiit_#
     password: root
+    #    password: XuNiit_#
     hikari:
       # 最小连接数
       minimum-idle: 1
@@ -43,15 +44,21 @@ spring:
         max-wait: 1ms
       shutdown-timeout: 100ms
 
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 100MB
+
 #Mybatis-Plus配置
 mybatis-plus:
   # mapper映射文件路径
   mapper-locations: classpath:mapper/*.xml
   # pojo类所在包路径
-  type-aliases-package: com.soft1851.music.admin.domain
+  type-aliases-package: com.soft1851.music.admin.domain.entity
   global-config:
     db-config:
       #主键类型：auto主键自增，input用户输入id，id_worker全局唯一的数字id，UUID全局唯一的UUID
       id-type: auto
       #开启驼峰式转换
       table-underline: true
+

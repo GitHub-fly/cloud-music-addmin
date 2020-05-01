@@ -4,7 +4,8 @@ import com.soft1851.music.admin.domain.dto.LoginDto;
 import com.soft1851.music.admin.domain.entity.SysAdmin;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * <p>
@@ -21,19 +22,33 @@ public interface SysAdminService extends IService<SysAdmin> {
      * @param loginDto
      * @return boolean
      */
-    boolean login(LoginDto loginDto);
+    Map<String,Object> login(LoginDto loginDto);
+
 
     /**
-     * 根据name查询Admin
+     * 根据name查询Admin信息，包含其所有角色
+     *
      * @param name
      * @return
      */
-    SysAdmin getAdmin(String name);
+    SysAdmin getAdminAndRolesByName(String name);
 
     /**
-     * 根据 adminId 查找 role_name
+     * 为指定的管理员生成token
      * @param adminId
+     * @param roles
+     * @param secrect
+     * @param expiresAt
+     * @return String
+     */
+    String getToken(final String adminId, final String roles, final String secrect, Date expiresAt);
+
+
+    /**
+     * 修改密码
+     * @param loginDto
      * @return
      */
-    List<String> getRoleName(String adminId);
+    boolean updatePassword(LoginDto loginDto);
+
 }

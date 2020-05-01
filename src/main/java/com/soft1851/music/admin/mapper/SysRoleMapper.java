@@ -20,12 +20,5 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param roleId
      * @return
      */
-//    @Select("SELECT t1.role_id, t1.role_name, t3.*\n" +
-//            "        FROM sys_role t1,\n" +
-//            "             role_menu t2,\n" +
-//            "             sys_menu t3\n" +
-//            "        WHERE t1.role_id = t2.role_id\n" +
-//            "          AND t2.menu_id = t3.id\n" +
-//            "          AND t1.role_id = #{roleId}")
     SysRole selectRoleById(int roleId);
 }

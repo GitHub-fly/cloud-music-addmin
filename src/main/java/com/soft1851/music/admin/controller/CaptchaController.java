@@ -1,6 +1,7 @@
 package com.soft1851.music.admin.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.soft1851.music.admin.annotation.ControllerWebLog;
 import com.soft1851.music.admin.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class CaptchaController {
     private RedisService redisService;
 
     @GetMapping("/captcha")
+    @ControllerWebLog(name = "captcha")
     public void defaultCaptcha(String uuid) {
         //取得HttpServletResponse对象
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

@@ -1,9 +1,7 @@
 package com.soft1851.music.admin.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.soft1851.music.admin.common.ResultCode;
-import com.soft1851.music.admin.controller.CaptchaController;
 import com.soft1851.music.admin.domain.dto.LoginDto;
 import com.soft1851.music.admin.exception.CustomException;
 import com.soft1851.music.admin.handler.RequestWrapper;
@@ -18,9 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author xunmi
- * @ClassName LoginInterceptor
+ * @ClassName JwtInterceptor
  * @Description TODO
- * @Date 2020/4/21
+ * @Date 2020/4/23
  * @Version 1.0
  **/
 @Slf4j
@@ -48,14 +46,11 @@ public class LoginInterceptor implements HandlerInterceptor {
         //从redis取得指定用户名的验证码
         JSONObject jsonObject = JSONObject.parseObject(body);
         //判断以用户名作为key的数据是否还存在
-        String verifyCode = jsonObject.getString("verifyCode");
         String uuid = jsonObject.getString("uuid");
+        String verifyCode = jsonObject.getString("verifyCode");
         if (redisService.existsKey(uuid)) {
             //取得redis中的验证码
             String correctCode = redisService.getValue(uuid, String.class);
-            System.out.println(verifyCode);
-            System.out.println(correctCode);
-
             //忽略大小写比对，成功则放行到controller调用登录接口
             if (correctCode.equalsIgnoreCase(verifyCode)) {
                 return true;
@@ -63,7 +58,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 throw new CustomException("验证码错误", ResultCode.USER_VERIFY_CODE_ERROR);
             }
         } else {
-            throw new CustomException("验证码失效", ResultCode.USER_CODE_TIMEOUT);
+            throw new CustomException("验证码失效", ResultCode.USER_INPUT_ERROR);
         }
     }
 }
