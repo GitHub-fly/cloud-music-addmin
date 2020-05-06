@@ -37,21 +37,21 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
 
     @Override
     public Map<String,Object> login(LoginDto loginDto) {
-        //根据查到基础信息，主要是要用密码来判定
+        // 根据查到基础信息，主要是要用密码来判定
         SysAdmin admin = sysAdminMapper.getSysAdminByName(loginDto.getName());
         if (admin != null) {
-            //客户端密码加密后和数据库的比对
+            // 客户端密码加密后和数据库的比对
             String pass = Md5Util.getMd5(loginDto.getPassword(), true, 32);
             if (admin.getPassword().equals(pass)) {
-                //登录成功，取得admin的完整信息（包含所有角色）
+                // 登录成功，取得admin的完整信息（包含所有角色）
                 SysAdmin admin1 = sysAdminMapper.selectByName(loginDto.getName());
-                //roles是个list，可能会是多个
+                // roles是个list，可能会是多个
                 List<SysRole> roles = admin1.getRoles();
                 String roleString = JSONObject.toJSONString(roles);
                 log.info("管理员角色列表：" + roleString);
-                //通过该管理员的id、roles、私钥、指定过期时间生成token
+                // 通过该管理员的id、roles、私钥、指定过期时间生成token
                 String token = JwtTokenUtil.getToken(admin.getId(), JSONObject.toJSONString(roles),admin.getSalt(), new Date(System.currentTimeMillis() + 6000L * 1000L));
-                //将私钥存入redis，在后面JWT拦截器中可以取出来对客户端请求头中的token解密
+                // 将私钥存入 redis，在后面JWT拦截器中可以取出来对客户端请求头中的token解密
                 redisService.set(admin1.getId(), admin1.getSalt(), 100L);
                 Map<String, Object> map = new TreeMap<>();
                 map.put("admin", admin1);

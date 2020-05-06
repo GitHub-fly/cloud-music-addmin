@@ -25,7 +25,6 @@ public class RedisServiceImpl implements RedisService {
     @Resource
     private RedisTemplate<Serializable, Object> redisTemplate;
 
-
     /**
      * 添加 Redis术语中 string 类型的数据
      *

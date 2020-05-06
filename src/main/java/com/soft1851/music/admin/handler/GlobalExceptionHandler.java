@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,27 +84,16 @@ public class GlobalExceptionHandler {
         return ResponseResult.failure(ResultCode.RESULT_CODE_DATA_NONE);
     }
 
-
     /**
-     * 参数校验异常处理
-     * @param ex
-     * @return
+     * IO异常的处理
+     *
+     * @param exception
+     * @return ResponseResult
      */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions (
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    @ExceptionHandler(value = {IOException.class})
+    @ResponseBody
+    public ResponseResult sendError(IOException exception) {
+        log.error(exception.getMessage());
+        return ResponseResult.failure(ResultCode.CAPTCHA_ERROR);
     }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-    }
-
 }

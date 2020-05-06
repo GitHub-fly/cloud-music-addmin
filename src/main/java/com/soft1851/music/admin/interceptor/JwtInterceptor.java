@@ -61,6 +61,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             }
             //用这个secrect私钥从token中解析出roles字符串
             String secrect = redisService.getValue(adminId, String.class);
+            System.out.println(secrect);
             String roles = JwtTokenUtil.getRoles(token, secrect);
             log.info("## roles= {}", roles);
             //反序列化成List
